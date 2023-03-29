@@ -5,14 +5,15 @@
 class Reflector
 {
 private:
-	std::array<int, 26> _wiring;
+	std::array<int, 26> _wiring; // Array to represent the wiring of the reflector
 public:
-	Reflector();
-	char Reflect(char letter);
+	Reflector(); // Class constructor to initialize the array
+	char Reflect(char letter); // Function to reflect the input letter
 };
 
 Reflector::Reflector()
 {
+	// Set up the wiring of the reflector using an array of integers
 	_wiring = { 24, 17, 20, 7, 16, 18, 11, 15, 23, 13, 25, 22, 6, 5, 26, 10, 3, 19, 12, 14, 21, 8, 4, 2, 1, 9 };
 }
 

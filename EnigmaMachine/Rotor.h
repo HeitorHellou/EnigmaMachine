@@ -12,14 +12,13 @@ private:
 	const char _notch; // The letter that, when reached, will cause the next rotor to rotate
 	int _position; // The current position of the rotor (0-25)
 	std::vector<int> _wiring; // The mapping of input letters to output letters
-	std::weak_ptr<Rotor> _nextRotor;
-	void RotateArray();
+	std::weak_ptr<Rotor> _nextRotor; // weak pointer to the next rotor in sequence
+	void RotateArray(); // Helper fuction to rotate array
 public:
 	Rotor(const std::vector<int>& wiring, char initializer, char notch, int position); // Constructor that initializes the rotor's wiring, notch, and position
 	void Rotate(); // Rotates the rotor by one position
 	char Encrypt(char letter); // Encrypts a letter using the rotor's wiring
-	void SetNextRotor(std::shared_ptr<Rotor> nextRotor);
-	void Print() const;
+	void SetNextRotor(std::shared_ptr<Rotor> nextRotor); // Sets the next rotor in the sequence
 };
 
 Rotor::Rotor(const std::vector<int>& wiring, char initializer, char notch, int position): _notch(notch), _position(position)
@@ -28,7 +27,8 @@ Rotor::Rotor(const std::vector<int>& wiring, char initializer, char notch, int p
 	int index = std::find(alphabet.begin(), alphabet.end(), initializer) - alphabet.begin();
 
 	// Populate the rotor's wiring using the provided wiring and initial position
-	for (int i = 0; i < 26; i++) {
+	for (int i = 0; i < 26; i++) 
+	{
 		_wiring.push_back(wiring[index]);
 		index = (index + 1) % 26;
 	}
@@ -71,6 +71,7 @@ void Rotor::RotateArray()
 {
 	char lastChar = _wiring.back(); // Store the last character
 
+	// Rotate the array
 	for (int i = _wiring.size() - 1; i > 0; i--)
 		_wiring[i] = _wiring[i - 1];
 
@@ -79,11 +80,6 @@ void Rotor::RotateArray()
 
 void Rotor::SetNextRotor(std::shared_ptr<Rotor> nextRotor)
 {
+	// Setting the next rotor
 	_nextRotor = std::weak_ptr<Rotor>(nextRotor);
-}
-
-void Rotor::Print() const
-{
-	for (auto i : _wiring)
-		std::cout << (char)i << " ";
 }

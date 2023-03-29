@@ -5,14 +5,15 @@
 class Plugboard
 {
 private:
-    std::array<std::pair<char, char>, 10> _pairs;
+    std::array<std::pair<char, char>, 10> _pairs; // pairs of letter to swap
 public:
-    Plugboard();
-    char Swap(char letter);
+    Plugboard(); // Constructor to set the pairs
+    char Swap(char letter); // Function to swap the input letter with its corresponding pair
 };
 
 Plugboard::Plugboard()
 {
+    // Initializing the pairs of letter to swap
     _pairs = { {
         { 'A', 'J' },
         { 'B', 'D' },
@@ -35,14 +36,12 @@ char Plugboard::Swap(char letter)
             return pair.first == letter || pair.second == letter;
         });
 
-    if (it == _pairs.end()) {
+    // If the letter doesn't have a pair return the letter
+    if (it == _pairs.end())
         return letter;
-    }
-
-    if (it->first == letter) {
+    // Return the other letter in the pair
+    if (it->first == letter)
         return it->second;
-    }
-    else {
+    else
         return it->first;
-    }
 }
